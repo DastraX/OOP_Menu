@@ -10,28 +10,63 @@ namespace OOP_Menu
     {
         public string Nadpis = "";
         public ConsoleColor BarvaOkraje = ConsoleColor.Black;
-        public ConsoleColor BarvaPozadi = ConsoleColor.DarkYellow;
+        public ConsoleColor BarvaPozadi = ConsoleColor.Red;
         public ConsoleColor BarvaKurzor = ConsoleColor.White;
-        public ConsoleColor BarvaText = ConsoleColor.Yellow;
-        public int sirka = 20;
+        public ConsoleColor BarvaText = ConsoleColor.Black;
+        public ConsoleColor BarvaTextCursor = ConsoleColor.Cyan;
+        public int sirka = 14;
+        public int vybranapolozka = -1;
         public string[] Polozky = new string[0];
         
         public void Zobrazení()
         {
             ZobrazOkraj();
-            ZobrazNadpis(); 
+            ZobrazNadpis();
+            ZobrazPolozky();
+            ZobrazKurzor();
         }
 
-        private void ZobrazNadpis()
+        public void ZobrazKurzor()
+        {
+            if (vybranapolozka >= 0)
+            {
+                Console.BackgroundColor = BarvaTextCursor;
+                Console.SetCursorPosition(1, 3 + vybranapolozka);
+                Console.Write(new String(' ', sirka));
+            }    
+        }
+
+        public void ZobrazPolozky()
+        {
+            
+            Console.SetCursorPosition(1, 3);
+            for(int i = 0; i < Polozky.Length; i++)
+            {
+                if(i == vybranapolozka)
+                {
+                    Console.BackgroundColor=BarvaTextCursor;
+                    Console.ForegroundColor = BarvaText;
+                }
+                else
+                {
+                    Console.BackgroundColor = BarvaPozadi;
+                    Console.ForegroundColor = BarvaText;
+                }
+                Console.SetCursorPosition(1,3 + i);
+                Console.WriteLine(Polozky[i]);
+            }
+        }
+
+        public void ZobrazNadpis()
         {
             Console.BackgroundColor = BarvaPozadi;
             Console.ForegroundColor = BarvaText;
-            Console.SetCursorPosition(9, 1);
+            Console.SetCursorPosition(sirka/2-1, 1);
             Console.Write("MENU");
 
         }
 
-        private void ZobrazOkraj()
+        public void ZobrazOkraj()
         {
             Console.BackgroundColor = BarvaPozadi;
             Console.BackgroundColor = BarvaOkraje;
@@ -44,16 +79,12 @@ namespace OOP_Menu
             Console.Write("╠");
             Console.Write(new String('═', sirka));
             Console.WriteLine("╣");
-            Console.Write("║");
-            Console.Write(new String(' ', sirka));
-            Console.WriteLine("║");
-            Console.Write("║");
-            Console.Write(new String(' ', sirka));
-            Console.WriteLine("║");
-            Console.Write("║");
-            Console.Write(new String(' ', sirka));
-            Console.WriteLine("║");
-
+            for(int i = 0; i < Polozky.Length; i++)
+            {
+                Console.Write("║");
+                Console.Write(new String(' ', sirka));
+                Console.WriteLine("║");
+            }
             Console.Write("╚");
             Console.Write(new String('═', sirka));
             Console.Write("╝");

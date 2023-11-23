@@ -40,11 +40,15 @@
 
 using OOP_Menu;
 Menu Menu = new Menu();
+
+Console.CursorVisible = false;
+Menu.Polozky = new string[15];
+for(int i = 0; i < Menu.Polozky.Length; i++)
+{
+    Menu.Polozky[i] = $"Položka {i + 1}";
+}
+Menu.vybranapolozka = 3;
+
 Menu.Zobrazení();
-Menu.Polozky = new string[5];
-
-
-
-
 Console.CursorVisible = false;
 Console.ReadKey();
