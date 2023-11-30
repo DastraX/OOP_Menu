@@ -10,12 +10,12 @@ namespace OOP_Menu
     {
         public string Nadpis = "";
         public ConsoleColor BarvaOkraje = ConsoleColor.Black;
-        public ConsoleColor BarvaPozadi = ConsoleColor.Red;
+        public ConsoleColor BarvaPozadi = ConsoleColor.White;
         public ConsoleColor BarvaKurzor = ConsoleColor.White;
         public ConsoleColor BarvaText = ConsoleColor.Black;
-        public ConsoleColor BarvaTextCursor = ConsoleColor.Cyan;
+        public ConsoleColor BarvaTextCursor = ConsoleColor.Black;
         public int sirka = 14;
-        public int vybranapolozka = -1;
+        public int vybranapolozka = 5;
         public string[] Polozky = new string[0];
         
         public void Zobrazení()
@@ -31,6 +31,7 @@ namespace OOP_Menu
             if (vybranapolozka >= 0)
             {
                 Console.BackgroundColor = BarvaTextCursor;
+                Console.ForegroundColor = BarvaKurzor;
                 Console.SetCursorPosition(1, 3 + vybranapolozka);
                 Console.Write(new String(' ', sirka));
             }    
@@ -44,8 +45,8 @@ namespace OOP_Menu
             {
                 if(i == vybranapolozka)
                 {
-                    Console.BackgroundColor=BarvaTextCursor;
-                    Console.ForegroundColor = BarvaText;
+                    Console.BackgroundColor = BarvaTextCursor;
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
@@ -69,7 +70,7 @@ namespace OOP_Menu
         public void ZobrazOkraj()
         {
             Console.BackgroundColor = BarvaPozadi;
-            Console.BackgroundColor = BarvaOkraje;
+            Console.ForegroundColor = BarvaOkraje;
             Console.Write("╔");
             Console.Write(new String('═', sirka));
             Console.WriteLine("╗");
