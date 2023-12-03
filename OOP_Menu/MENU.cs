@@ -8,11 +8,14 @@ namespace OOP_Menu
 {
     public class Menu
     {
+
+        public int X = 0;
+        public int Y = 0;
         public string Nadpis = "";
         public ConsoleColor BarvaOkraje = ConsoleColor.Black;
         public ConsoleColor BarvaPozadi = ConsoleColor.White;
         public ConsoleColor BarvaText = ConsoleColor.Black;
-        public ConsoleColor BarvaTextKurzor = ConsoleColor.White;
+        public ConsoleColor BarvaTextKurzor = ConsoleColor.Red;
         public ConsoleColor BarvaKurzor = ConsoleColor.Black;
         public int sirka = 14;
         public int vybranapolozka = 5;
@@ -26,29 +29,29 @@ namespace OOP_Menu
             ZobrazKurzor();
         }
 
-        public void ZobrazKurzor()
+        private void ZobrazKurzor()
         {
             if (vybranapolozka >= 0)
             {
+                Console.ForegroundColor = BarvaTextKurzor;
                 Console.BackgroundColor = BarvaKurzor;
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.SetCursorPosition(1, 3 + vybranapolozka);
+                Console.SetCursorPosition(X + 1, Y + 3 + vybranapolozka);
                 Console.Write(new String(' ', sirka));
-                Console.SetCursorPosition(1, 3 + vybranapolozka);
+                Console.SetCursorPosition(X + 1, Y + 3 + vybranapolozka);
                 Console.Write("Položka " + (vybranapolozka + 1));
-            }    
+            }
         }
 
         public void ZobrazPolozky()
         {
-            
-            Console.SetCursorPosition(1, 3);
-            for(int i = 0; i < Polozky.Length; i++)
+
+
+            for (int i = 0; i < Polozky.Length; i++)
             {
                 Console.BackgroundColor = BarvaPozadi;
                 Console.ForegroundColor = BarvaText;
-                Console.SetCursorPosition(1,3 + i);
-                Console.WriteLine(Polozky[i]);
+                Console.SetCursorPosition(X + 1, Y + 3 + i);
+                Console.Write(Polozky[i]);
             }
         }
 
@@ -56,35 +59,38 @@ namespace OOP_Menu
         {
             Console.BackgroundColor = BarvaPozadi;
             Console.ForegroundColor = BarvaText;
-            Console.SetCursorPosition(sirka/2-1, 1);
+            Console.SetCursorPosition(X + 3, Y + 1);
             Console.Write("MENU");
 
         }
 
-        public void ZobrazOkraj()
+        private void ZobrazOkraj()
         {
             Console.BackgroundColor = BarvaPozadi;
             Console.ForegroundColor = BarvaOkraje;
-            Console.Write("╔");
-            Console.Write(new String('═', sirka));
-            Console.WriteLine("╗");
-            Console.Write("║");
-            Console.Write(new String(' ', sirka));
-            Console.WriteLine("║");
-            Console.Write("╠");
-            Console.Write(new String('═', sirka));
-            Console.WriteLine("╣");
-            for(int i = 0; i < Polozky.Length; i++)
+            ZobrazRadek('╔', '═', '╗', X, Y);
+            ZobrazRadek('║', ' ', '║', X, Y + 1);
+            ZobrazRadek('╠', '═', '╣', X, Y + 2);
+            for (int i = 0; i < Polozky.Length; i++)
             {
-                Console.Write("║");
-                Console.Write(new String(' ', sirka));
-                Console.WriteLine("║");
+                ZobrazRadek('║', ' ', '║', X, Y + 3 + i);
             }
-            Console.Write("╚");
-            Console.Write(new String('═', sirka));
-            Console.Write("╝");
-            
+            ZobrazRadek('╚', '═', '╝', X, Y + 3 + Polozky.Length);
+        }
 
+        private void ZobrazRadek(char levy, char stred, char pravy)
+        {
+            Console.Write(levy);
+            Console.Write(new String(stred, sirka));
+            Console.WriteLine(pravy);
+        }
+
+        private void ZobrazRadek(char levy, char stred, char pravy, int x, int y)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.Write(levy);
+            Console.Write(new String(stred, sirka));
+            Console.Write(pravy);
         }
     }
 }

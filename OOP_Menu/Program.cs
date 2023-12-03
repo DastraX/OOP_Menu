@@ -2,6 +2,9 @@
 Menu Menu = new Menu();
 bool konec = false;
 
+Menu.X = 10;
+Menu.Y = 5;
+
 Console.CursorVisible = false;
 Menu.Polozky = new string[15];
 for(int i = 0; i < Menu.Polozky.Length; i++)
