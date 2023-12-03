@@ -8,35 +8,34 @@ for(int i = 0; i < Menu.Polozky.Length; i++)
 {
     Menu.Polozky[i] = $"Položka {i + 1}";
 }
-Menu.vybranapolozka = 5;
-
+Menu.vybranapolozka = 0;
+Menu.Zobrazení();
 do
 {
+    Console.Clear();
     Menu.Zobrazení();
     var klavesa = Console.ReadKey();
     if (klavesa.Key == ConsoleKey.UpArrow)
     {
         Menu.vybranapolozka--;
-        Console.Clear();
-        Menu.Zobrazení();
         if (Menu.vybranapolozka < 0)
         {
             Menu.vybranapolozka = Menu.Polozky.Length - 1;
-        }
-        else if (klavesa.Key == ConsoleKey.DownArrow)
-        {
-            Menu.vybranapolozka++;
             Console.Clear();
-            Menu.Zobrazení();
-            if (Menu.vybranapolozka >= Menu.Polozky.Length)
-            {
-                Menu.vybranapolozka = 0;
-            }
         }
-        else if (klavesa.Key == ConsoleKey.Escape)
+    }
+    else if (klavesa.Key == ConsoleKey.DownArrow)
+    {
+        Menu.vybranapolozka++;
+        if (Menu.vybranapolozka > Menu.Polozky.Length - 1)
         {
-            konec = true;
+            Menu.vybranapolozka = 0;
+            Console.Clear();
         }
+    }
+    else if (klavesa.Key == ConsoleKey.Escape)
+    {
+        konec = true;
     }
 } while (!konec);
 
