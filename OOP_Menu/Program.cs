@@ -40,4 +40,4 @@ do
 } while (!konec);
 
 Console.CursorVisible = false;
-Console.ReadKey();
+Console.SetCursorPosition(0, Menu.Polozky.Length + 3);
